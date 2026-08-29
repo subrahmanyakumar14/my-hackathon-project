@@ -13,7 +13,7 @@ FAQ_DATABASE = [
     {
         "intent": "semester fees",
         "keywords": ["fee", "fees", "cost", "tuition"],
-        "answer": "Tution fees for the current semester for CSE CORE was 90000 per semester, for CSE AIML was 120000 per semester, for CSE Data Science was 100000 per semester, for ECE was 80000, and for mechanical 80000."
+        "answer": "Tuition fees for the current semester for CSE CORE was 90000 per semester, for CSE AIML was 120000 per semester, for CSE Data Science was 100000 per semester, for ECE was 80000, and for mechanical 80000."
     },
     {
         "intent": "exam_dates",

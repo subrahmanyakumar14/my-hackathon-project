@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>College FAQ Assistant</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* small scrollbar polish */
+    .custom-scrollbar::-webkit-scrollbar { width: 10px; }
+    .custom-scrollbar::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.4); }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.35); border-radius: 999px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(99, 102, 241, 0.55); }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-slate-100 min-h-screen font-sans flex items-center justify-center p-4">
+  <div class="w-full max-w-4xl h-[720px] bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-slate-700/50 shadow-2xl overflow-hidden flex">
+    <!-- Sidebar -->
+    <aside class="hidden md:flex w-72 flex-col bg-slate-950/60 border-r border-slate-800 p-5">
+      <div>
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+            <i class="fa-solid fa-graduation-cap text-white text-lg"></i>
+          </div>
+          <div>
+            <h2 class="font-bold text-white tracking-wide text-sm">College FAQ Assistant</h2>
+            <div class="text-[11px] text-emerald-300/90 font-semibold flex items-center gap-2">
+              <span class="inline-flex w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Online
+            </div>
+          </div>
+        </div>
+
+        <p class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold mb-3">Quick topics</p>
+
+        <div class="space-y-2">
+          <button onclick="quickSend('When are the exam dates?')" class="w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-slate-800 hover:text-white transition flex items-center gap-2 border border-transparent hover:border-slate-700">
+            <i class="fa-solid fa-calendar-days text-indigo-400"></i>
+            Exam dates
+          </button>
+
+          <button onclick="quickSend('When is tuition due?')" class="w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-slate-800 hover:text-white transition flex items-center gap-2 border border-transparent hover:border-slate-700">
+            <i class="fa-solid fa-credit-card text-emerald-400"></i>
+            Tuition due
+          </button>
+
+          <button onclick="quickSend('What are the library hours?')" class="w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-slate-800 hover:text-white transition flex items-center gap-2 border border-transparent hover:border-slate-700">
+            <i class="fa-solid fa-book-open text-amber-400"></i>
+            Library hours
+          </button>
+
+          <button onclick="quickSend('How do I download my class timetable?')" class="w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-slate-800 hover:text-white transition flex items-center gap-2 border border-transparent hover:border-slate-700">
+            <i class="fa-solid fa-clock text-sky-400"></i>
+            Timetable
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-auto bg-indigo-950/40 border border-indigo-800/40 rounded-xl p-3">
+        <p class="text-[11px] text-slate-300 font-semibold">Not sure where to start?</p>
+        <a href="mailto:support@college.edu" class="block mt-1 text-xs font-medium text-indigo-300 hover:underline">
+          Email Student Services <i class="fa-solid fa-arrow-right ml-1 text-[11px]"></i>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 flex flex-col bg-slate-900/40">
+      <!-- Header -->
+      <header class="p-4 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center md:hidden">
+            <i class="fa-solid fa-robot text-white text-sm"></i>
+          </div>
+
+          <div>
+            <h1 class="font-bold text-slate-100 text-sm md:text-base">College FAQ Assistant</h1>
+            <p class="text-xs text-slate-400">Fast answers for students</p>
+          </div>
+        </div>
+
+        <button type="button" onclick="resetChat()" class="text-slate-300 hover:text-slate-100 text-xs flex items-center gap-2 bg-slate-800/70 px-3 py-1.5 rounded-lg border border-slate-700 transition">
+          <i class="fa-solid fa-rotate-right"></i>
+          Reset
+        </button>
+      </header>
+
+      <!-- Chat -->
+      <section id="chatBox" class="flex-1 p-5 overflow-y-auto space-y-4 custom-scrollbar bg-[radial-gradient(1200px_circle_at_20%_0%,rgba(79,70,229,0.12),transparent_60%)]">
+        <!-- Seed message -->
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center shrink-0 shadow-md shadow-indigo-600/30">
+            <i class="fa-solid fa-robot text-xs text-white"></i>
+          </div>
+          <div class="bg-slate-800/90 border border-slate-700/70 text-slate-200 p-4 rounded-2xl rounded-tl-none max-w-[85%] text-xs md:text-sm leading-relaxed shadow-md">
+            Hey! 👋 What do you need—exam dates, tuition deadlines, library hours, or your timetable?
+          </div>
+        </div>
+      </section>
+
+      <!-- Quick chips -->
+      <div class="px-5 py-2 flex gap-2 overflow-x-auto bg-slate-900/20 border-t border-slate-800/50 custom-scrollbar">
+        <button onclick="quickSend('When are the exams?')" class="shrink-0 text-xs bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-indigo-200 px-3 py-1.5 rounded-full transition flex items-center gap-2">
+          <span>🗓️</span> Exams
+        </button>
+
+        <button onclick="quickSend('When is tuition due?')" class="shrink-0 text-xs bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-emerald-200 px-3 py-1.5 rounded-full transition flex items-center gap-2">
+          <span>💳</span> Tuition
+        </button>
+
+        <button onclick="quickSend('What are the library hours?')" class="shrink-0 text-xs bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-amber-200 px-3 py-1.5 rounded-full transition flex items-center gap-2">
+          <span>📚</span> Library
+        </button>
+      </div>
+
+      <!-- Input -->
+      <form id="chatForm" class="p-4 border-t border-slate-800 bg-slate-950/35 flex items-center gap-2">
+        <input
+          type="text"
+          id="userInput"
+          placeholder="Type your question here…"
+          required
+          autocomplete="off"
+          class="flex-1 bg-slate-800/90 text-slate-100 placeholder-slate-400 px-4 py-3 rounded-xl border border-slate-700/80 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-xs md:text-sm transition"
+        />
+        <button
+          type="submit"
+          class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-4 md:px-5 py-3 rounded-xl text-xs md:text-sm font-semibold transition flex items-center gap-2 shadow-lg shadow-indigo-600/30"
+        >
+          <span>Send</span>
+          <i class="fa-solid fa-paper-plane text-xs"></i>
+        </button>
+      </form>
+    </main>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById('chatBox');
+    const chatForm = document.getElementById('chatForm');
+    const userInput = document.getElementById('userInput');
+
+    // ------- Safety: render text only -------
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+    }
+
+    // ------- Message rendering -------
+    function addMessage(content, role = "assistant") {
+      const div = document.createElement('div');
+      const isUser = role === "user";
+      const safeText = escapeHtml(content);
+
+      if (isUser) {
+        div.className = "flex items-start justify-end gap-3";
+        div.innerHTML = `
+          <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 rounded-2xl rounded-tr-none max-w-[80%] text-xs md:text-sm leading-relaxed shadow-md shadow-indigo-600/20">
+            ${safeText}
+          </div>
+          <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-user text-xs text-slate-200"></i>
+          </div>
+        `;
+      } else {
+        div.className = "flex items-start gap-3";
+        div.innerHTML = `
+          <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center shrink-0 shadow-md shadow-indigo-600/30">
+            <i class="fa-solid fa-robot text-xs text-white"></i>
+          </div>
+          <div class="bg-slate-800/90 border border-slate-700/70 text-slate-200 p-4 rounded-2xl rounded-tl-none max-w-[85%] text-xs md:text-sm leading-relaxed shadow-md">
+            ${safeText}
+          </div>
+        `;
+      }
+
+      chatBox.appendChild(div);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function addLoading() {
+      if (document.getElementById('typingLoader')) return;
+
+      const wrapper = document.createElement('div');
+      wrapper.id = 'typingLoader';
+      wrapper.className = "flex items-start gap-3";
+
+      wrapper.innerHTML = `
+        <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center shrink-0 shadow-md shadow-indigo-600/30">
+          <i class="fa-solid fa-robot text-xs text-white"></i>
+        </div>
+        <div class="bg-slate-800/90 border border-slate-700/70 text-slate-200 p-4 rounded-2xl rounded-tl-none max-w-[85%] text-xs md:text-sm leading-relaxed shadow-md">
+          <div class="flex items-center gap-2">
+            <span class="w-1.5 h-1.5 bg-slate-200 rounded-full animate-bounce"></span>
+            <span class="w-1.5 h-1.5 bg-slate-200 rounded-full animate-bounce [animation-delay:0.15s]"></span>
+            <span class="w-1.5 h-1.5 bg-slate-200 rounded-full animate-bounce [animation-delay:0.3s]"></span>
+            <span class="ml-2 text-slate-300">Working on it…</span>
+          </div>
+        </div>
+      `;
+
+      chatBox.appendChild(wrapper);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function removeLoading() {
+      const el = document.getElementById('typingLoader');
+      if (el) el.remove();
+    }
+
+    // ------- Chat actions -------
+    function quickSend(text) {
+      userInput.value = text;
+      handleSend();
+    }
+
+    function resetChat() {
+      chatBox.innerHTML = `
+        <div class="flex items-start gap-3">
+          <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center shrink-0 shadow-md shadow-indigo-600/30">
+            <i class="fa-solid fa-robot text-xs text-white"></i>
+          </div>
+          <div class="bg-slate-800/90 border border-slate-700/70 text-slate-200 p-4 rounded-2xl rounded-tl-none max-w-[85%] text-xs md:text-sm leading-relaxed shadow-md">
+            Fresh start—what are you trying to figure out?
+          </div>
+        </div>
+      `;
+      userInput.value = "";
+      userInput.focus();
+    }
+
+    async function handleSend() {
+      const text = (userInput.value || "").trim();
+      if (!text) return;
+
+      userInput.disabled = true;
+      const prev = userInput.placeholder;
+      userInput.placeholder = "Sending…";
+
+      addMessage(text, "user");
+      userInput.value = '';
+
+      addLoading();
+
+      try {
+        const res = await fetch('/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: text })
+        });
+
+        const data = await res.json();
+        removeLoading();
+
+        let reply = "";
+        if (data && typeof data.response === "string") reply = data.response.trim();
+        if (!reply) reply = "I’m not seeing that clearly—can you rephrase it or share a bit more detail?";
+
+        // Displays only the exact answer from Python without prefixes or follow-up questions
+        addMessage(reply, "assistant");
+
+      } catch (err) {
+        removeLoading();
+        addMessage(
+          "Sorry—something went wrong. Try again in a moment?",
+          "assistant"
+        );
+      } finally {
+        userInput.disabled = false;
+        userInput.placeholder = prev;
+        userInput.focus();
+      }
+    }
+
+    chatForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      handleSend();
+    });
+  </script>

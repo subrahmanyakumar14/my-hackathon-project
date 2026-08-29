@@ -1,124 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>College FAQ Assistant</title>
-
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <style>
-    /* small scrollbar polish */
-    .custom-scrollbar::-webkit-scrollbar { width: 10px; }
-    .custom-scrollbar::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.4); }
-    .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(99, 102, 241, 0.35); border-radius: 999px; }
-    .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(99, 102, 241, 0.55); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus FAQ Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 5px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
+        }
+    </style>
 </head>
-
 <body class="bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-slate-100 min-h-screen font-sans flex items-center justify-center p-4">
-  <div class="w-full max-w-4xl h-[720px] bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-slate-700/50 shadow-2xl overflow-hidden flex">
-    <!-- Sidebar -->
-    <aside class="hidden md:flex w-72 flex-col bg-slate-950/60 border-r border-slate-800 p-5">
-      <div>
-        <div class="flex items-center gap-3 mb-6">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
-            <i class="fa-solid fa-graduation-cap text-white text-lg"></i>
-          </div>
-          <div>
-            <h2 class="font-bold text-white tracking-wide text-sm">College FAQ Assistant</h2>
-            <div class="text-[11px] text-emerald-300/90 font-semibold flex items-center gap-2">
-              <span class="inline-flex w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              Online
+
+    <!-- Main Container -->
+    <div class="w-full max-w-4xl h-[680px] bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-slate-700/50 shadow-2xl flex overflow-hidden">
+        
+        <!-- Sidebar Navigation -->
+        <div class="hidden md:flex flex-col w-64 bg-slate-950/60 border-r border-slate-800 p-5 justify-between">
+            <div>
+                <!-- Campus Brand -->
+                <div class="flex items-center gap-3 mb-8">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                        <i class="fa-solid fa-graduation-cap text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <h2 class="font-bold text-white tracking-wide text-sm">CAMPUS AI</h2>
+                        <span class="text-xs text-emerald-400 font-medium flex items-center gap-1">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Online
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Quick Categories -->
+                <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Popular Topics</p>
+                <div class="space-y-2">
+                    <button onclick="sendQuickQuery('What are the exam dates?')" class="w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition flex items-center gap-2">
+                        <i class="fa-solid fa-calendar-days text-indigo-400"></i> Exam Schedule
+                    </button>
+                    <button onclick="sendQuickQuery('When is the tuition fee due?')" class="w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition flex items-center gap-2">
+                        <i class="fa-solid fa-credit-card text-emerald-400"></i> Tuition Fees
+                    </button>
+                    <button onclick="sendQuickQuery('What are the library timings?')" class="w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition flex items-center gap-2">
+                        <i class="fa-solid fa-book-open text-amber-400"></i> Library Hours
+                    </button>
+                    <button onclick="sendQuickQuery('How to download timetable?')" class="w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition flex items-center gap-2">
+                        <i class="fa-solid fa-clock text-sky-400"></i> Class Timetable
+                    </button>
+                </div>
             </div>
-          </div>
+
+            <!-- Student Support Note -->
+            <div class="bg-indigo-950/40 border border-indigo-800/40 rounded-xl p-3">
+                <p class="text-[11px] text-slate-300">Need personal help?</p>
+                <a href="mailto:support@college.edu" class="text-xs font-medium text-indigo-400 hover:underline">Contact Student Services &rarr;</a>
+            </div>
         </div>
 
-        <p class="text-[11px] text-slate-400 uppercase tracking-wider font-semibold mb-3">Quick topics</p>
+        <!-- Chat Main Area -->
+        <div class="flex-1 flex flex-col h-full bg-slate-900/40">
+            
+            <!-- Mobile/Header Bar -->
+            <div class="p-4 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center md:hidden">
+                        <i class="fa-solid fa-robot text-white text-sm"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-slate-100 text-sm md:text-base">Campus FAQ Assistant</h1>
+                        <p class="text-xs text-slate-400">Instant answers for students</p>
+                    </div>
+                </div>
+                <button onclick="clearChat()" class="text-slate-400 hover:text-slate-200 text-xs flex items-center gap-1 bg-slate-800 px-3 py-1.5 rounded-lg border border-slate-700 transition">
+                    <i class="fa-solid fa-rotate-right"></i> Reset
+                </button>
+            </div>
 
-        <div class="space-y-2">
-          <button onclick="quickSend('When are the exam dates?')" class="w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-slate-800 hover:text-white transition flex items-center gap-2 border border-transparent hover:border-slate-700">
-            <i class="fa-solid fa-calendar-days text-indigo-400"></i>
-            Exam dates
-          </button>
+            <!-- Messages Stream -->
+            <div id="chatBox" class="flex-1 p-5 overflow-y-auto space-y-4 custom-scrollbar">
+                
+                <!-- Bot Welcome Message -->
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center shrink-0 shadow-md shadow-indigo-600/30">
+                        <i class="fa-solid fa-robot text-xs text-white"></i>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700/70 text-slate-200 p-4 rounded-2xl rounded-tl-none max-w-[85%] text-xs md:text-sm leading-relaxed shadow-md">
+                        Hello! 👋 Welcome to Campus Support. Ask me anything about exam schedules, fee deadlines, library hours, or course timetables.
+                    </div>
+                </div>
 
-          <button onclick="quickSend('When is tuition due?')" class="w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-slate-800 hover:text-white transition flex items-center gap-2 border border-transparent hover:border-slate-700">
-            <i class="fa-solid fa-credit-card text-emerald-400"></i>
-            Tuition due
-          </button>
+            </div>
 
-          <button onclick="quickSend('What are the library hours?')" class="w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-slate-800 hover:text-white transition flex items-center gap-2 border border-transparent hover:border-slate-700">
-            <i class="fa-solid fa-book-open text-amber-400"></i>
-            Library hours
-          </button>
+            <!-- Suggestion Quick Chips -->
+            <div class="px-5 py-2 flex gap-2 overflow-x-auto custom-scrollbar">
+                <button onclick="sendQuickQuery('Exam dates')" class="shrink-0 text-xs bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-indigo-300 px-3 py-1.5 rounded-full transition">
+                    🗓️ Exam Dates
+                </button>
+                <button onclick="sendQuickQuery('Tuition fees deadline')" class="shrink-0 text-xs bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-emerald-300 px-3 py-1.5 rounded-full transition">
+                    💳 Tuition Fees
+                </button>
+                <button onclick="sendQuickQuery('Library hours')" class="shrink-0 text-xs bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-amber-300 px-3 py-1.5 rounded-full transition">
+                    📚 Library Hours
+                </button>
+            </div>
 
-          <button onclick="quickSend('How do I download my class timetable?')" class="w-full text-left px-3 py-2 rounded-lg text-xs font-medium text-slate-200 hover:bg-slate-800 hover:text-white transition flex items-center gap-2 border border-transparent hover:border-slate-700">
-            <i class="fa-solid fa-clock text-sky-400"></i>
-            Timetable
-          </button>
+            <!-- Input Box Form -->
+            <form id="chatForm" class="p-4 border-t border-slate-800 bg-slate-950/40 flex items-center gap-2">
+                <input type="text" id="userInput" placeholder="Type your question here..." required autocomplete="off"
+                    class="flex-1 bg-slate-800/90 text-slate-100 placeholder-slate-400 px-4 py-3 rounded-xl border border-slate-700/80 focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 text-xs md:text-sm transition">
+                
+                <button type="submit" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white px-5 py-3 rounded-xl text-xs md:text-sm font-semibold transition flex items-center gap-2 shadow-lg shadow-indigo-600/30">
+                    <span>Send</span>
+                    <i class="fa-solid fa-paper-plane text-xs"></i>
+                </button>
+            </form>
+
         </div>
-      </div>
+    </div>
 
-      <div class="mt-auto bg-indigo-950/40 border border-indigo-800/40 rounded-xl p-3">
-        <p class="text-[11px] text-slate-300 font-semibold">Not sure where to start?</p>
-        <a href="mailto:support@college.edu" class="block mt-1 text-xs font-medium text-indigo-300 hover:underline">
-          Email Student Services <i class="fa-solid fa-arrow-right ml-1 text-[11px]"></i>
-        </a>
-      </div>
-    </aside>
+    <script>
+        const chatBox = document.getElementById('chatBox');
+        const chatForm = document.getElementById('chatForm');
 
-    <!-- Main -->
-    <main class="flex-1 flex flex-col bg-slate-900/40">
-      <!-- Header -->
-      <header class="p-4 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between gap-3">
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center md:hidden">
-            <i class="fa-solid fa-robot text-white text-sm"></i>
-          </div>
+        function sendQuickQuery(query) {
+            document.getElementById('userInput').value = query;
+            chatForm.dispatchEvent(new Event('submit'));
+        }
 
-          <div>
-            <h1 class="font-bold text-slate-100 text-sm md:text-base">College FAQ Assistant</h1>
-            <p class="text-xs text-slate-400">Fast answers for students</p>
-          </div>
-        </div>
+        function clearChat() {
+            chatBox.innerHTML = `
+                <div class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center shrink-0 shadow-md shadow-indigo-600/30">
+                        <i class="fa-solid fa-robot text-xs text-white"></i>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700/70 text-slate-200 p-4 rounded-2xl rounded-tl-none max-w-[85%] text-xs md:text-sm leading-relaxed shadow-md">
+                        Chat reset! How can I assist you today?
+                    </div>
+                </div>
+            `;
+        }
 
-        <button type="button" onclick="resetChat()" class="text-slate-300 hover:text-slate-100 text-xs flex items-center gap-2 bg-slate-800/70 px-3 py-1.5 rounded-lg border border-slate-700 transition">
-          <i class="fa-solid fa-rotate-right"></i>
-          Reset
-        </button>
-      </header>
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const input = document.getElementById('userInput');
+            const message = input.value.trim();
+            if (!message) return;
 
-      <!-- Chat -->
-      <section id="chatBox" class="flex-1 p-5 overflow-y-auto space-y-4 custom-scrollbar bg-[radial-gradient(1200px_circle_at_20%_0%,rgba(79,70,229,0.12),transparent_60%)]">
-        <!-- Seed message -->
-        <div class="flex items-start gap-3">
-          <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center shrink-0 shadow-md shadow-indigo-600/30">
-            <i class="fa-solid fa-robot text-xs text-white"></i>
-          </div>
-          <div class="bg-slate-800/90 border border-slate-700/70 text-slate-200 p-4 rounded-2xl rounded-tl-none max-w-[85%] text-xs md:text-sm leading-relaxed shadow-md">
-            Hey! 👋 What do you need—exam dates, tuition deadlines, library hours, or your timetable?
-          </div>
-        </div>
-      </section>
+            // Render User Bubble
+            chatBox.innerHTML += `
+                <div class="flex items-start justify-end gap-3">
+                    <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white p-4 rounded-2xl rounded-tr-none max-w-[80%] text-xs md:text-sm leading-relaxed shadow-md shadow-indigo-600/20">
+                        ${message}
+                    </div>
+                    <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-user text-xs text-slate-300"></i>
+                    </div>
+                </div>
+            `;
+            input.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
 
-      <!-- Quick chips -->
-      <div class="px-5 py-2 flex gap-2 overflow-x-auto bg-slate-900/20 border-t border-slate-800/50 custom-scrollbar">
-        <button onclick="quickSend('When are the exams?')" class="shrink-0 text-xs bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-indigo-200 px-3 py-1.5 rounded-full transition flex items-center gap-2">
-          <span>🗓️</span> Exams
-        </button>
+            // Show Animated Typing Indicator
+            const typingId = 'typing-' + Date.now();
+            chatBox.innerHTML += `
+                <div id="${typingId}" class="flex items-start gap-3">
+                    <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-robot text-xs text-white"></i>
+                    </div>
+                    <div class="bg-slate-800 border border-slate-700/70 text-slate-400 px-4 py-3 rounded-2xl rounded-tl-none text-xs flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce"></span>
+                        <span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.2s]"></span>
+                        <span class="w-1.5 h-1.5 bg-slate-400 rounded-full animate-bounce [animation-delay:0.4s]"></span>
+                    </div>
+                </div>
+            `;
+            chatBox.scrollTop = chatBox.scrollHeight;
 
-        <button onclick="quickSend('When is tuition due?')" class="shrink-0 text-xs bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-emerald-200 px-3 py-1.5 rounded-full transition flex items-center gap-2">
-          <span>💳</span> Tuition
-        </button>
+            // Fetch Response from Server
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message })
+                });
+                const data = await response.json();
 
-        <button onclick="quickSend('What are the library hours?')" class="shrink-0 text-xs bg-slate-800/80 hover:bg-slate-700 border border-slate-700 text-amber-200 px-3 py-1.5 rounded-full transition flex items-center gap-2">
-          <span>📚</span> Library
-        </button>
-      </div>
+                // Remove Typing Indicator
+                document.getElementById(typingId).remove();
 
-      <!-- Input -->
-      <form id="chatForm" class="p-4 border-t border-slate-800 bg-slate-950/35 flex items-center gap-2">
-        <input
-          type="text"
-          id="userInput"
+                // Render Bot Bubble
+                chatBox.innerHTML += `
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center shrink-0 shadow-md shadow-indigo-600/30">
+                            <i class="fa-solid fa-robot text-xs text-white"></i>
+                        </div>
+                        <div class="bg-slate-800 border border-slate-700/70 text-slate-200 p-4 rounded-2xl rounded-tl-none max-w-[85%] text-xs md:text-sm leading-relaxed shadow-md">
+                            ${data.response}
+                        </div>
+                    </div>
+                `;
+            } catch (err) {
+                document.getElementById(typingId).remove();
+                chatBox.innerHTML += `
+                    <div class="flex items-start gap-3">
+                        <div class="w-8 h-8 rounded-full bg-red-600 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-triangle-exclamation text-xs text-white"></i>
+                        </div>
+                        <div class="bg-red-950/50 border border-red-800 text-red-200 p-4 rounded-2xl rounded-tl-none max-w-[85%] text-xs md:text-sm">
+                            Server communication error. Please try again.
+                        </div>
+                    </div>
+                `;
+            }
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+    </script>
+</body>
+</html>

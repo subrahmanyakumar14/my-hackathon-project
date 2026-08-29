@@ -45,8 +45,8 @@ FAQ_DATABASE = [
         "answer": "The central library is open Monday to Friday from 8:00 AM to 12:00 PM, and weekends from 10:00 AM to 12:00 PM."
     },
     {
-        "intent": "timetable",
-        "keywords": ["timetable", "schedule", "class", "classes", "timing", "lecture"],
+        "intent": "timings",
+        "keywords": ["timetable", "schedule", "class", "classes", "timing", "lecture","college timmings","timmings of college"],
         "answer": "The college timings are from 9:00 AM to 5:00 PM. Class timetables can be downloaded from the Academic Portal after logging in with your student ID."
     },
     {

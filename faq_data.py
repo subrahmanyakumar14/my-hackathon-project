@@ -1,6 +1,5 @@
 """
 College FAQ Chatbot Application
-================================
 A Flask-based conversational AI that answers frequently asked questions about college services,
 fees, admission, hostel, exams, and other student-related information.
 """
@@ -21,17 +20,59 @@ FAQ_DATABASE = [
 {
     "intent": "greetings",
     "keywords": ["hello", "hi", "hey", "greetings", "good morning", "good afternoon"],
-    "answer": "Hello! How can I help you today? You can ask about exam dates, tuition fees, library hours, or timetables."
+    "answer": "Hello! How can I help you today?"
 },
+{
+    "intent": "about college",
+    "keywords": ["about", "college", "information"],
+    "answer": "Welcome to our college! We are a premier institution dedicated to providing quality education and fostering innovation. How can I assist you with information about our college?"
+},
+
 
   {
         "intent": "fees",
         "keywords": ["payment", "due date"],
         "answer": "Tuition fees for the current semester are due on September 15th. You can pay via the student portal under the Financials tab."
     },
+ {
+        "intent": "time table",
+        "keywords": ["time table", "class", "classes"],
+        "answer": "The time table can be downloaded from the Academic Portal after logging in with your student ID."
+    },
+ {
+        "intent": "classroom location",
+        "keywords": ["classroom", "location", "building"],
+        "answer": "The classroom locations can be found from the Academic Portal after logging in with your student ID."
+    },
+{
+        "intent": "academic calendar",
+        "keywords": ["academic calendar", "events", "deadlines", "important dates"],
+        "answer": "The academic calendar for the current year can be found on the official college website under the 'Academics' section."
+    },
+{
+        "intent": "lab sessions",
+        "keywords": ["lab", "practical", "session"],
+        "answer": "Lab sessions are scheduled according to the time table. You can find the lab schedule in the Academic Portal after logging in with your student ID."
+    },
+{
+        "intent": "grade sheet",
+        "keywords": ["grade", "grades", "result", "academic"],
+        "answer": "The grade sheet can be accessed through the Academic Portal after logging in with your student ID."
+    },
+
+{
+        "intent": "scholarships",
+        "keywords": ["scholarship", "award", "financial aid"],
+        "answer": "Scholarships are available for meritorious students. You can apply through the student portal under the 'Financial Aid' section."
+    },
+{
+        "intent": "student virtual id",
+        "keywords": ["virtual id", "student id", "login credentials"],
+        "answer": "Your student virtual ID can be found on the student portal after logging in with your credentials."
+    },
     {
-        "intent": "semester fees",
-        "keywords": ["fee", "fees", "cost", "tuition"],
+        "intent": "college fees",
+        "keywords": ["fee", "fees", "cost", "college fees","tuition"],
         "answer": "Tuition fees for the current semester for CSE CORE was 90000 per semester, for CSE AIML was 120000 per semester, for CSE Data Science was 100000 per semester, for ECE was 80000, and for mechanical 80000."
     },
     {
@@ -44,11 +85,27 @@ FAQ_DATABASE = [
         "keywords": ["library", "hours", "open", "timing", "timings", "close"],
         "answer": "The central library is open Monday to Friday from 8:00 AM to 12:00 PM, and weekends from 10:00 AM to 12:00 PM."
     },
+{
+        "intent": "minimum attendance",
+        "keywords": ["attendance", "minimum", "class", "classes"],
+        "answer": "The minimum attendance requirement for each course is 75%. This is to ensure that students are actively participating in the learning process."
+    },
     {
         "intent": "timings",
         "keywords": ["timetable", "schedule", "class", "classes", "timing", "lecture","college timmings","timmings of college"],
         "answer": "The college timings are from 9:00 AM to 5:00 PM. Class timetables can be downloaded from the Academic Portal after logging in with your student ID."
     },
+{
+        "intent": "revaluation",
+        "keywords": ["reval", "revaluation", "exam", "result"],
+        "answer": "Revaluation requests can be submitted through the Academic Portal within the specified deadline. The revaluation process will be conducted by the respective department."
+    },
+{
+        "intent": "cumilative_gpa",
+        "keywords": ["gpa", "grade", "performance", "academic"],
+        "answer": "The cumulative GPA is calculated based on the grades obtained in all the courses completed during your academic journey."
+    },
+
     {
         "intent": "admission",
         "keywords": ["admission", "apply", "eligibility", "criteria", "deadline"],
